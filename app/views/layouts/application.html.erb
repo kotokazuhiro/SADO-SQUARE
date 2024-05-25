@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SADO SQUARE 3</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <%= link_to "ジャンル一覧", users_genres_path %>
+      <%= render 'users/searches/search', posts: @posts %>
+      <%= link_to "投稿一覧", users_posts_path %>
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to "マイページ", users_user_path(current_user.id) %>
+        </li>
+        <li>
+         <%= link_to "投稿", new_users_post_path %>
+        </li>
+        <li>
+         <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "新規登録", new_user_registration_path %>
+        </li>
+        <li>
+          <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post %>
+        </li>
+        <li>
+          <%= link_to "ログイン", new_user_session_path %>
+        </li>
+      <% end %>
+      
+      <% if admin_signed_in? %>
+        <li>
+         <%= link_to "ログアウト(管理者用)", destroy_admin_session_path, method: :delete %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "ログイン(管理者用)", new_admin_session_path %>
+        </li>
+      <% end %>
+    </header>
+    <%= yield %>
+  </body>
+</html>

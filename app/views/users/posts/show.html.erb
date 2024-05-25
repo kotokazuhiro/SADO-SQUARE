@@ -1,0 +1,62 @@
+<div>
+  <p><%= @post.genre.name %></p>
+  <p><%= @post.place %></p>
+  <h1><%= @post.title %></h1>
+  <p><%= @post.user.nickname %></p>
+  <p><%= @post.user.age %></p>
+  <p><%= image_tag @post.get_image %></p>
+  <p><%= @post.content %></p>
+  <p><%= @post.created_at.strftime('%Y/%m/%d') %></p>
+
+  
+  <% if @post.user == current_user %>
+    <%= link_to "削除", users_post_path(@post), method: :delete %>
+  <% end %>
+  <% if @post.niced_by?(current_user) %>
+    <p>
+      <%= link_to users_post_nice_path(@post), method: :delete do %>
+        ♥<%= @post.nices.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to users_post_nice_path(@post), method: :post do %>
+        ♡<%= @post.nices.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+ 
+</div>
+
+<% if @comment.errors.any? %>
+  <%= @comment.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @comment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<p>コメント</p>
+<div>
+  <%= form_with model: [@post, @comment], url: users_post_comments_path(@post.id) do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "コメントする" %>
+  <% end %>
+</div>
+
+<div>
+  <p>コメント一覧</p>
+  <p>コメント件数：<%= @post.comments.count %></p>
+  <% @post.comments.each do |comment| %>
+    <p>ユーザー名:<%= comment.user.name %>  年齢:<%= comment.user.age %>. <%= comment.created_at.strftime('%Y/%m/%d') %>
+    </p>
+    <p><%= comment.comment %></p>
+    <p>
+      <% if comment.user == current_user %>
+        <%= link_to "削除", users_post_comment_path(comment.post, comment), method: :delete %>
+      <% end %>
+    </p>
+  <% end %>
+</div>
+

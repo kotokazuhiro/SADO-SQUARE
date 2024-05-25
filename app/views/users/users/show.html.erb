@@ -1,0 +1,32 @@
+<div>
+  <h2><%= @user.nickname %></h2>
+  
+  <h4>登録情報</h4>
+  <p>姓名　<%= @user.name %></p>
+  <p>フリガナ　<%= @user.name_kana %></p>
+  <p>ニックネーム　<%= @user.nickname %></p>
+  <p>お住まいの都道府県　<%= @user.prefectures %></p>
+  <p>年齢　<%= @user.age %></p>
+  <p>電話番号　<%= @user.telephone_number %></p>
+  <p>メールアドレス　<%= @user.email %></p>
+  
+  <% unless @user.guest_user? %>
+    <p><%= link_to "登録情報編集", edit_users_user_path(@user) %></p>
+  <% end %>
+</div>
+
+<% @posts.each do |post| %>
+<div>
+  <%= link_to users_post_path(post.id) do %>
+    <%= image_tag post.get_image %>
+  <% end %>
+    
+  <p>タイトル:<%= post.title %></p>
+  <p>ユーザーネーム:<%= post.user.nickname %></p>
+  <p><%= link_to "#{post.comments.count} コメント", users_post_path(post.id) %></p>
+</div>
+<% end %>
+
+<p><%=link_to"いいね一覧", nices_users_user_path(@user) %></p>
+
+
