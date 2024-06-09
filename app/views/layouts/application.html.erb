@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SADO SQUARE 3</title>
+    <title>SADO SQUARE</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,6 +12,7 @@
 
   <body>
     <header>
+      <p><%= link_to "ホーム", root_path %></p>
       <%= link_to "ジャンル一覧", users_genres_path %>
       <%= render 'users/searches/search', posts: @posts %>
       <%= link_to "投稿一覧", users_posts_path %>
@@ -39,6 +40,9 @@
       
       <% if admin_signed_in? %>
         <li>
+         <%= link_to "ホーム", admin_homes_top_path %>
+        </li>
+        <li>
          <%= link_to "ログアウト(管理者用)", destroy_admin_session_path, method: :delete %>
         </li>
       <% else %>
@@ -47,6 +51,11 @@
         </li>
       <% end %>
     </header>
+    <main>
+      <div>
+        <%= flash[:notice] %>
+      </div>
+    </main>
     <%= yield %>
   </body>
 </html>

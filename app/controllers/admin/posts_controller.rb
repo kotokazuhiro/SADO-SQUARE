@@ -1,5 +1,5 @@
 class Admin::PostsController < ApplicationController
-  
+  before_action :authenticate_admin!
   
   def index
     if params[:genre_search]

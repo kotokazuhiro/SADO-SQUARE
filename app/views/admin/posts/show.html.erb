@@ -12,7 +12,7 @@
   <% if @post.user == current_user %>
     <%= link_to "削除", users_post_path(@post), method: :delete %>
   <% end %>
-  <% if @post.niced_by?(current_user) %>
+  <% if @post.niced_by?(current_admin) %>
     <p>
       <%= link_to users_post_nice_path(@post), method: :delete do %>
         ♥<%= @post.nices.count %> いいね

@@ -15,9 +15,9 @@ class User < ApplicationRecord
   validates :telephone_number, presence: { message: "電話番号を入力してください" }
   validates :prefectures, presence: { message: "お住まいの都道府県を入力してください" }
   validates :age, presence: { message: "年齢を入力してください" }
-  validates :email, presence: { message: "メールアドレスを入力してください" }
-  validates :password, presence: { message: "パスワードを入力してください" }
-  validates :password_confirmation, presence: { message: "パスワード(確認用)を入力してください" }
+  # validates :email, presence: { message: "メールアドレスを入力してください" }
+  # validates :password, presence: { message: "パスワードを入力してください" }
+  # validates :password_confirmation, presence: { message: "パスワード(確認用)を入力してください" }
   
   
   GUEST_USER_EMAIL = "guest@example.com"

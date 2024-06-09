@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :show]
     resources :users, only: [:index, :show, :edit, :update, :destroy]
     resources :genres, only: [:index, :create, :destroy]
+    resources :comments, only: [:index, :destroy]
   end
   
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
@@ -29,7 +30,6 @@ Rails.application.routes.draw do
     get '/genre/search' => 'searches#genre_search'
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
-    get 'homes/about'
     
     resources :genres, only: [:index]
     resources :posts, only: [:new, :create, :index, :show, :destroy] do
@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     end
   end
   
-  root to: "users/homes#top"
+  get 'homes/about'
+  root to: "homes#top"
   
 end
